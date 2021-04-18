@@ -1,7 +1,10 @@
+import com.github.jsonldjava.shaded.com.google.common.collect.HashBasedTable;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.*;
 import org.apache.jena.util.iterator.*;
+import org.neo4j.driver.*;
+import org.neo4j.driver.Driver;
 import org.neo4j.driver.*;
 //import org.neo4j.driver.*;
 //import org.neo4j.driver.*;
@@ -40,7 +43,6 @@ public class forweb {
             String[] arrOfStr = uri.split("#", 2);
             System.out.println("\n\nClass is : " + arrOfStr[1]);
             classes.add(arrOfStr[1]);
-            UrisToClassLabel.put(ontClass.toString(), ontClass.getLabel("en"));
 
             if (ontClass.hasSuperClass()) {
 //                System.out.println("SuperClassLabel is :"+ ontClass.getLabel("en"));
@@ -136,7 +138,8 @@ public class forweb {
         //Individulas
         //hasmaps
         HashMap<String, List<String>> stp = new HashMap<String, List<String>>();
-        HashMap<String, List<String>> pto = new HashMap<String, List<String>>();
+        HashMap<List<String>, List<String>> pto = new HashMap<List<String>, List<String>>();
+       // HashBasedTable<String, String, String> table = HashBasedTable.create();
         Iterator indi = model.listIndividuals();
         while (indi.hasNext()) {
             Individual indiv = (Individual) indi.next();
@@ -164,10 +167,13 @@ public class forweb {
                    stp.put(subject.getLocalName(), new ArrayList<String>());
                }
                stp.get(subject.getLocalName()).add(predicate.getLocalName());
-               if (!pto.containsKey(predicate.getLocalName())) {
-                   stp.put(predicate.getLocalName(), new ArrayList<String>());
+               List<String> list = new ArrayList<String>();
+               list.add(subject.getLocalName());
+               list.add(predicate.getLocalName());
+               if (!pto.containsKey(list)) {
+                   pto.put( list , new ArrayList<String>());
                }
-               stp.get(predicate.getLocalName()).add(object.toString());
+               pto.get(list).add(object.toString());
            }
             else if(predicate.getLocalName().equals("price")||predicate.getLocalName().equals("city"))
             {
@@ -179,10 +185,14 @@ public class forweb {
                     stp.put(subject.getLocalName(), new ArrayList<String>());
                 }
                 stp.get(subject.getLocalName()).add(predicate.getLocalName());
-                if (!pto.containsKey(predicate.getLocalName())) {
-                    stp.put(predicate.getLocalName(), new ArrayList<String>());
+                List<String> list = new ArrayList<String>();
+                list.add(subject.getLocalName());
+                list.add(predicate.getLocalName());
+                if (!pto.containsKey(list)) {
+                    pto.put( list , new ArrayList<String>());
                 }
-                stp.get(predicate.getLocalName()).add(object.toString().replaceAll("\\^\\^http://www.w3.org/2001/XMLSchema#int", ""));
+                pto.get(list).add(object.toString().replaceAll("\\^\\^http://www.w3.org/2001/XMLSchema#int", ""));
+                //stp.get(predicate.getLocalName()).add(object.toString().replaceAll("\\^\\^http://www.w3.org/2001/XMLSchema#int", ""));
             }
             else
             {
@@ -197,34 +207,53 @@ public class forweb {
                     stp.put(subject.getLocalName(), new ArrayList<String>());
                 }
                 stp.get(subject.getLocalName()).add(predicate.getLocalName());
-                if (!pto.containsKey(predicate.getLocalName())) {
-                    stp.put(predicate.getLocalName(), new ArrayList<String>());
+                List<String> list = new ArrayList<String>();
+                list.add(subject.getLocalName());
+                list.add(predicate.getLocalName());
+                if (!pto.containsKey(list)) {
+                    pto.put( list , new ArrayList<String>());
                 }
-                stp.get(predicate.getLocalName()).add(arrOfStr[1]);
+                pto.get(list).add(arrOfStr[1]);
+               // stp.get(predicate.getLocalName()).add(arrOfStr[1]);
 
             }
 
         }
+        int a=1;
+while(a==1) {
+    System.out.println("select subject from following list:");
+    for (Map.Entry mapElement : stp.entrySet()) {
+        String key = (String) mapElement.getKey();
+        System.out.println(key);
 
-        System.out.println("select subject from following list:");
-        for (Map.Entry mapElement : stp.entrySet()) {
-            String key = (String) mapElement.getKey();
-            System.out.println(key);
+    }
+    Scanner scan = new Scanner(System.in);
+    System.out.print("Enter your subject: ");
+    String name_s = scan.nextLine();
 
-        }
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Enter your choice: ");
-        String name = scan.nextLine();
+    List<String> list = new ArrayList<String>();
 
-        List<String> list=new ArrayList<String>();
+    list = stp.get(name_s);
+    System.out.println("select predicate from following list");
+    System.out.println(list);
+    System.out.print("Enter your predicate: ");
+    String name_p = scan.nextLine();
+    List<String> list_o = new ArrayList<String>();
 
-        list=stp.get(name);
-        System.out.println("select predicate from following list");
-        System.out.println(list);
+    List<String> temp = new ArrayList<String>();
+    temp.add(name_s);
+    temp.add(name_p);
+    list_o = pto.get(temp);
 
-        for(String key:list)
-        {
+    System.out.println(list_o);
 
-        }
+    System.out.println("FINAL RESULT\n\n");
+    System.out.println("With subject '" + name_s + "' predicate '" + name_p + "' object is => " + list_o + "\n\n");
+    System.out.println(name_s + " " + name_p + " " + list_o+"\n\n");
+
+    System.out.println(" To Continue press 1 ");
+    a= scan.nextInt();
+}
+
     }
 }
