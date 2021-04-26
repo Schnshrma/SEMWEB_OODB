@@ -31,7 +31,7 @@ public class infrencing {
         ExtendedIterator<OntClass> iterator = model.listClasses();
         List<String> classes = new ArrayList<String>();
         HashMap<String, List<String>> ClassSuperclassUris = new HashMap<String, List<String>>();
-        HashMap<String, String> UrisToClassLabel = new HashMap<String, String>();
+       // HashMap<String, String> UrisToClassLabel = new HashMap<String, String>();
         List<List<String>> AllProps = new ArrayList<List<String>>();
         while (iterator.hasNext()) {
             OntClass ontClass = (OntClass) iterator.next();
@@ -133,8 +133,8 @@ public class infrencing {
 //======================================================================================================
         //Individulas
         //hasmaps
-        HashMap<String, List<String>> stp = new HashMap<String, List<String>>();
-        HashMap<List<String>, List<String>> pto = new HashMap<List<String>, List<String>>();
+        HashMap<String, Set<String>> stp = new HashMap<String, Set<String>>();
+        HashMap<List<String>, Set<String>> pto = new HashMap<List<String>, Set<String>>();
         Iterator indi = model.listIndividuals();
         while (indi.hasNext()) {
             Individual indiv = (Individual) indi.next();
@@ -228,27 +228,27 @@ public class infrencing {
 //                }
                 }
                 if (!stp.containsKey(sub)) {
-                        stp.put(sub, new ArrayList<String>());
+                        stp.put(sub,new HashSet<String>());
                     }
                     stp.get(sub).add(pred);
                     List<String> list = new ArrayList<String>();
                     list.add(sub);
                     list.add(pred);
                     if (!pto.containsKey(list)) {
-                        pto.put(list, new ArrayList<String>());
+                        pto.put(list, new HashSet<String>());
                     }
                     pto.get(list).add(obj);
                 if(inverse.containsKey(pred))
                 {
                     if (!stp.containsKey(obj)) {
-                        stp.put(obj, new ArrayList<String>());
+                        stp.put(obj,new HashSet<String>());
                     }
                     stp.get(obj).add(inverse.get(pred));
                     List<String> list1 = new ArrayList<String>();
                     list1.add(obj);
                     list1.add(inverse.get(pred));
                     if (!pto.containsKey(list1)) {
-                        pto.put(list1, new ArrayList<String>());
+                        pto.put(list1, new HashSet<String>());
                     }
                     pto.get(list1).add(sub);
                 }
@@ -268,14 +268,14 @@ public class infrencing {
                 System.out.print("Enter your subject: ");
                 String name_s = scan.nextLine();
 
-                List<String> list = new ArrayList<String>();
+                Set<String> list = new HashSet<String>();
 
                 list = stp.get(name_s);
                 System.out.println("select predicate from following list");
                 System.out.println(list);
                 System.out.print("Enter your predicate: ");
                 String name_p = scan.nextLine();
-                List<String> list_o = new ArrayList<String>();
+                Set<String> list_o = new HashSet<String>();
 
                 List<String> temp = new ArrayList<String>();
                 temp.add(name_s);
