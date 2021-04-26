@@ -5,10 +5,6 @@ import org.apache.jena.riot.*;
 import org.apache.jena.util.iterator.*;
 import org.neo4j.driver.*;
 import org.neo4j.driver.Driver;
-import org.neo4j.driver.*;
-//import org.neo4j.driver.*;
-//import org.neo4j.driver.*;
-//import org.neo4j.driver.*;
 import java.io.*;
 import java.util.*;
 
@@ -220,40 +216,42 @@ public class forweb {
 
         }
         int a=1;
-while(a==1) {
-    System.out.println("select subject from following list:");
-    for (Map.Entry mapElement : stp.entrySet()) {
-        String key = (String) mapElement.getKey();
-        System.out.println(key);
+        while(a==1)
+        {
+            System.out.println("*************************************#####################*************************************");
+            System.out.println("select subject from following list:");
+            for (Map.Entry mapElement : stp.entrySet()) {
+                String key = (String) mapElement.getKey();
+                System.out.println(key);
 
-    }
-    Scanner scan = new Scanner(System.in);
-    System.out.print("Enter your subject: ");
-    String name_s = scan.nextLine();
+            }
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Enter your subject: ");
+            String name_s = scan.nextLine();
 
-    List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<String>();
 
-    list = stp.get(name_s);
-    System.out.println("select predicate from following list");
-    System.out.println(list);
-    System.out.print("Enter your predicate: ");
-    String name_p = scan.nextLine();
-    List<String> list_o = new ArrayList<String>();
+            list = stp.get(name_s);
+            System.out.println("select predicate from following list");
+            System.out.println(list);
+            System.out.print("Enter your predicate: ");
+            String name_p = scan.nextLine();
+            List<String> list_o = new ArrayList<String>();
 
-    List<String> temp = new ArrayList<String>();
-    temp.add(name_s);
-    temp.add(name_p);
-    list_o = pto.get(temp);
+            List<String> temp = new ArrayList<String>();
+            temp.add(name_s);
+            temp.add(name_p);
+            list_o = pto.get(temp);
 
-    System.out.println(list_o);
+            System.out.println(list_o);
 
-    System.out.println("FINAL RESULT\n\n");
-    System.out.println("With subject '" + name_s + "' predicate '" + name_p + "' object is => " + list_o + "\n\n");
-    System.out.println(name_s + " " + name_p + " " + list_o+"\n\n");
+            System.out.println("FINAL RESULT\n\n");
+            System.out.println("With subject '" + name_s + "' predicate '" + name_p + "' object is => " + list_o + "\n\n");
+            System.out.println(name_s + " " + name_p + " " + list_o+"\n\n");
 
-    System.out.println(" To Continue press 1 ");
-    a= scan.nextInt();
-}
+            System.out.println(" To Continue press 1 ");
+            a= scan.nextInt();
+        }
 
     }
 }

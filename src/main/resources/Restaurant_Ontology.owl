@@ -48,6 +48,8 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#isServedIn">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#serves"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Restaurant"/>
         <rdfs:label>isServedIn</rdfs:label>
@@ -81,6 +83,7 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#serves">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Restaurant"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Food"/>
         <rdfs:label>serves</rdfs:label>
@@ -359,7 +362,6 @@
         <untitled-ontology-4:hasMenus rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#PMenu1"/>
         <untitled-ontology-4:isLocatedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Location1"/>
         <untitled-ontology-4:isSpecializedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Italian"/>
-        <untitled-ontology-4:serves rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Pizza"/>
         <untitled-ontology-4:name>Pizza Hut</untitled-ontology-4:name>
         <rdfs:label>Restaurant1</rdfs:label>
     </owl:NamedIndividual>
@@ -373,9 +375,17 @@
         <untitled-ontology-4:hasMenus rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#DMenu1"/>
         <untitled-ontology-4:isLocatedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Location2"/>
         <untitled-ontology-4:isSpecializedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Indian"/>
-        <untitled-ontology-4:serves rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Dosa"/>
         <untitled-ontology-4:name>Dosa Plaza</untitled-ontology-4:name>
         <rdfs:label>Restaurant2</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#pani_poori -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#pani_poori">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Food"/>
+        <untitled-ontology-4:isServedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Restaurant1"/>
     </owl:NamedIndividual>
     
 
