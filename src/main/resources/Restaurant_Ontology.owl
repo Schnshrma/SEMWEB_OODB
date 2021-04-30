@@ -386,6 +386,7 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#pani_poori">
         <rdf:type rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Food"/>
         <untitled-ontology-4:isServedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Restaurant1"/>
+        <untitled-ontology-4:isServedIn rdf:resource="http://www.semanticweb.org/mohitjain/ontologies/2021/2/untitled-ontology-4#Restaurant2"/>
     </owl:NamedIndividual>
     
 
